@@ -20,6 +20,19 @@ class PostRepository extends ServiceEntityRepository
     public function findAll():array
     {
         return $this->createQueryBuilder('p')
+            ->innerJoin('p.author_id','a','a.id=p.author_id_id')
+
+            ->select('
+                p.title,
+                p.content_preview,
+                p.content,
+                p.cover_image_url,
+                p.category,
+                p.slug,
+                p.category,
+                a.username as author,
+                p.created_at
+            ')
             ->orderBy('p.created_at', 'DESC')
             ->getQuery()
             ->getResult();
