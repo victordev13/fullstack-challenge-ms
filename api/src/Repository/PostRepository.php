@@ -68,11 +68,11 @@ class PostRepository extends ServiceEntityRepository
     public function create(Post $post)
     {
         try {
-            $post = null;
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
         } catch (Exception $e) {
+
         }
     }
 }

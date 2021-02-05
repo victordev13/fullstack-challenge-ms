@@ -9,13 +9,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class BlogController
+ * @package App\Controller
+ * @Route("/api")
+ */
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/", name="blog")
+     * @Route("/", name="index")
      * @return Response
      */
     public function index(): Response
+    {
+        return new Response('API running!');
+    }
+
+    /**
+     * @Route("/posts", name="blog")
+     * @return Response
+     */
+    public function posts(): Response
     {
         $posts =  $this->getDoctrine()
             ->getRepository(Post::class)
@@ -25,7 +39,8 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/post/{slug}", name="post")
+     * @Route("/posts/{slug}", name="post")
+     * @param string $slug
      * @return Response
      */
     public function post(string $slug): Response
@@ -33,6 +48,17 @@ class BlogController extends AbstractController
         $post = $this->getDoctrine()
             ->getRepository(Post::class)
             ->findOneBySlug($slug);
+        return $this->json($post);
+    }
+
+    /**
+     * @Route("/post/create", name="create_post", methods={"POST"})
+     * @param string $slug
+     * @return Response
+     */
+    public function create(): Response
+    {
+        
         return $this->json($post);
     }
 }
