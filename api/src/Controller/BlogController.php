@@ -30,6 +30,9 @@ class BlogController extends AbstractController
      */
     public function post(string $slug): Response
     {
-        return $this->json([]);
+        $post = $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->findOneBySlug($slug);
+        return $this->json($post);
     }
 }

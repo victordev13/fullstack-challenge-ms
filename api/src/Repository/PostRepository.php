@@ -7,12 +7,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 
-/**
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- * @method Post|null findOneBy(array $criteria, array $orderBy = null)
- * @method Post|null findOneBy(string $slug)
- * @method Post[]    findAll()
- */
 class PostRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -23,9 +17,7 @@ class PostRepository extends ServiceEntityRepository
     /**
      * @return Post[]
      */
-
-
-    public function findAll()
+    public function findAll():array
     {
         return $this->createQueryBuilder('p')
             ->orderBy('p.created_at', 'DESC')
@@ -33,6 +25,32 @@ class PostRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
+    /**
+     * @param $slug
+     * @return array
+     */
+    public function findOneBySlug($slug): array
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.author_id','a','a.id=p.author_id_id')
+            ->select('
+                p.title,
+                p.content_preview,
+                p.content,
+                p.cover_image_url,
+                p.category,
+                p.slug,
+                p.category,
+                a.username as author,
+                p.created_at
+            ')
+            ->where('p.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->orderBy('p.created_at','DESC')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function create(Post $post)
     {
