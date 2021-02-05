@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Author;
+use App\Entity\Post;
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,24 +12,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/a", name="blog")
+     * @Route("/", name="blog")
      * @return Response
      */
     public function index(): Response
     {
-        $response = new Response(json_encode(["message" => "Hello World!"]));
-        $response->header->set('Content-Type', 'application/json');
-        return $response;
+        $posts =  $this->getDoctrine()
+            ->getRepository(Post::class)
+            ->findAll();
+
+        return $this->json($posts);
     }
 
     /**
-     * @Route("/", name="post")
+     * @Route("/post/{slug}", name="post")
      * @return Response
      */
-    public function post(): Response
+    public function post(string $slug): Response
     {
-        $response = new Response();
-        $response->header->set('Content-Type', 'application/json');
-        return $response;
+        return $this->json([]);
     }
 }

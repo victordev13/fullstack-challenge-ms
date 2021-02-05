@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PostsRepository;
+use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Author;
 
 /**
- * @ORM\Entity(repositoryClass=PostsRepository::class)
+ * @ORM\Entity(repositoryClass=PostRepository::class)
  */
 class Post
 {
@@ -43,7 +44,7 @@ class Post
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Authors::class, inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="post")
      * @ORM\JoinColumn(nullable=false)
      */
     private $author_id;
