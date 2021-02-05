@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -26,7 +27,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/posts", name="blog")
+     * @Route("/posts", name="posts")
      * @return Response
      */
     public function posts(): Response
@@ -53,12 +54,13 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/post/create", name="create_post", methods={"POST"})
-     * @param string $slug
+     * @param Request $request
      * @return Response
      */
-    public function create(): Response
+    public function create(Request $request): Response
     {
-        
-        return $this->json($post);
+        $data = json_decode($request->getContent());
+        return new Response(json_encode($data));
+//        return $this->json("");
     }
 }
