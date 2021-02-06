@@ -157,9 +157,9 @@ class Post
         return $this->created_at;
     }
 
-    public function setCreatedAt(): self
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
-        $this->updated = new \DateTime("now");
+        $this->created_at = $created_at;
         return $this;
     }
 

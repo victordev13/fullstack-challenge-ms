@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\DataFixtures\AuthorFixtures;
+use DateTime;
 
 class BlogFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -157,6 +158,7 @@ class BlogFixtures extends Fixture implements DependentFixtureInterface
             $authorForPost->setId(intval($fakePosts[$i]['author_id']));
 
             $post->setAuthorId($authorForPost);
+            $post->setCreatedAt(new DateTime);
             $manager->merge($post);
         }
         

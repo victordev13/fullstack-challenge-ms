@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-
+use DateTime;
 /**
  * Class BlogController
  * @package App\Controller
@@ -79,7 +79,7 @@ class BlogController extends AbstractController
             $createNewPost->setCategory($postFormData["category"]);
             $createNewPost->setSlug($postFormData["slug"]);
             $createNewPost->setCoverImageUrl($postFormData["cover_image_url"]);
-
+            $createNewPost->setCreatedAt(new DateTime);
             $author = new Author();
             $author->setId(intval($postFormData["author_id"]));
 
