@@ -53,7 +53,7 @@ class BlogController extends AbstractController
             ->findOneBySlug($slug);
 
         if(sizeof($post) === 0){
-            return $this->json(["message"=>"Post not found!"], 404);
+            return $this->json(["message"=>"Post not found!"], Response::HTTP_NOT_FOUND);
         }
         
         return $this->json($post);
@@ -69,7 +69,7 @@ class BlogController extends AbstractController
         $postFormData = json_decode($request->getContent(), true);
 
         if(sizeof($postFormData) === 0){
-            return $this->json(["message"=>"no fields informed"], 400);
+            return $this->json(["message"=>"no fields informed"], Response::HTTP_BAD_REQUEST);
         }
         try{
             $createNewPost = new Post();
@@ -80,13 +80,14 @@ class BlogController extends AbstractController
             $createNewPost->setSlug($postFormData["slug"]);
             $createNewPost->setCoverImageUrl($postFormData["cover_image_url"]);
             $createNewPost->setCreatedAt(new DateTime);
+            
             $author = new Author();
             $author->setId(intval($postFormData["author_id"]));
 
             $authorExists = $this->getDoctrine()->getRepository(Author::class)->findById(intval($author->getId()));
 
             if(sizeof($authorExists) === 0){
-                return $this->json(["message"=>"Author not found"], 400);
+                return $this->json(["message"=>"Author not found"], Response::HTTP_NOT_FOUND);
             }
             
             $createNewPost->setAuthorId($author);
@@ -97,11 +98,10 @@ class BlogController extends AbstractController
           
             return $this->json(["success"=>true]);
 
-        } catch(\Exception $e){
-            return $this->json(["error"=>"All fields required"], 400);
+        } catch(\TypeError $e){
+            return $this->json(["error"=>"All fields required"], Response::HTTP_BAD_REQUEST);
         }
     }
-
 
     /**
      * @Route("/authors/create", name="author_create", methods={"POST","HEAD"})
@@ -113,7 +113,7 @@ class BlogController extends AbstractController
         $postFormData = json_decode($request->getContent(), true);
         
         if(sizeof($postFormData) === 0){
-            return $this->json(["message"=>"no fields informed"], 400);
+            return $this->json(["message"=>"no fields informed"], Response::HTTP_BAD_REQUEST);
         }
         try{
             $createNewAuthor = new Author();
@@ -127,7 +127,7 @@ class BlogController extends AbstractController
             return $this->json(["success"=>true]);
           
         } catch(\Exception $e){
-            return $this->json(["error"=>"All fields required"], 400);
+            return $this->json(["error"=>"All fields required"], Response::HTTP_BAD_REQUEST);
         }
     }
 }
