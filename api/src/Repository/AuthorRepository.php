@@ -22,4 +22,13 @@ class AuthorRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findById(int $id): array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('id = ?')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
 }

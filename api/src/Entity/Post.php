@@ -44,7 +44,7 @@ class Post
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="post")
+     * @ORM\ManyToOne(targetEntity=Author::class, inversedBy="post", cascade = {"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $author_id;
@@ -55,7 +55,7 @@ class Post
     private $cover_image_url;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", "default"="CURRENT_TIMESTAMP")
      */
     private $created_at;
 
@@ -137,7 +137,6 @@ class Post
     public function setAuthorId(?Author $author_id): self
     {
         $this->author_id = $author_id;
-
         return $this;
     }
 

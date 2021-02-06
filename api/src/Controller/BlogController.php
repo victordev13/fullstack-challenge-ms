@@ -27,40 +27,70 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/posts", name="posts")
+     * @Route("/posts", name="posts_list")
      * @return Response
      */
-    public function posts(): Response
+    public function postsList(): Response
     {
         $posts =  $this->getDoctrine()
             ->getRepository(Post::class)
             ->findAll();
-
+        $posts = ["lengh"=>sizeof($posts),"posts"=>$posts];
         return $this->json($posts);
     }
 
     /**
-     * @Route("/posts/{slug}", name="post")
+     * @Route("/posts/{slug}",name="posts_find", methods={"GET"})
      * @param string $slug
      * @return Response
      */
-    public function post(string $slug): Response
+    public function postsFind(string $slug): Response
     {
         $post = $this->getDoctrine()
             ->getRepository(Post::class)
             ->findOneBySlug($slug);
+
+            if(sizeof($post) === 0){
+                return $this->json(["message"=>"Post not found!"], 404);
+            }
         return $this->json($post);
     }
 
-    /**
-     * @Route("/post/create", name="create_post", methods={"POST"})
+     /**
+     * @Route("/posts/create", name="posts_create", methods={"POST","HEAD"})
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    public function postsCreate(Request $request): Response
     {
-        $data = json_decode($request->getContent());
-        return new Response(json_encode($data));
-//        return $this->json("");
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $postFormData = json_decode($request->getContent(), true);
+
+        if(sizeof($postFormData) === 0){
+            return $this->json(["message"=>"no fields informed"], 400);
+        }
+        try{
+            $createNewPost = new Post();
+            $createNewPost->setTitle($postFormData["title"]);
+            $createNewPost->setContentPreview($postFormData["content_preview"]);
+            $createNewPost->setContent($postFormData["content"]);
+            $createNewPost->setCategory($postFormData["category"]);
+            $createNewPost->setSlug($postFormData["slug"]);
+            $createNewPost->setCoverImageUrl($postFormData["cover_image_url"]);
+
+            $author = new Author();
+            $author->setId(intval($postFormData["author_id"]));
+            $createNewPost->setAuthorId($author);
+            
+            $entityManager->merge($createNewPost);
+            $entityManager->flush();
+
+            return $this->json(["message"=>"ok"]);
+        } catch(\Exception $e){
+            return $this->json(["error"=>$e->getMessage()], 400);
+        }
+
     }
+    
 }
