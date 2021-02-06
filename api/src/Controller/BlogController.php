@@ -35,7 +35,9 @@ class BlogController extends AbstractController
         $posts =  $this->getDoctrine()
             ->getRepository(Post::class)
             ->findAll();
+            
         $posts = ["lengh"=>sizeof($posts),"posts"=>$posts];
+        
         return $this->json($posts);
     }
 
@@ -50,9 +52,10 @@ class BlogController extends AbstractController
             ->getRepository(Post::class)
             ->findOneBySlug($slug);
 
-            if(sizeof($post) === 0){
-                return $this->json(["message"=>"Post not found!"], 404);
-            }
+        if(sizeof($post) === 0){
+            return $this->json(["message"=>"Post not found!"], 404);
+        }
+        
         return $this->json($post);
     }
 
@@ -63,8 +66,6 @@ class BlogController extends AbstractController
      */
     public function postsCreate(Request $request): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-
         $postFormData = json_decode($request->getContent(), true);
 
         if(sizeof($postFormData) === 0){
@@ -81,16 +82,52 @@ class BlogController extends AbstractController
 
             $author = new Author();
             $author->setId(intval($postFormData["author_id"]));
+
+            $authorExists = $this->getDoctrine()->getRepository(Author::class)->findById(intval($author->getId()));
+
+            if(sizeof($authorExists) === 0){
+                return $this->json(["message"=>"Author not found"], 400);
+            }
+            
             $createNewPost->setAuthorId($author);
             
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->merge($createNewPost);
             $entityManager->flush();
+          
+            return $this->json(["success"=>true]);
 
-            return $this->json(["message"=>"ok"]);
         } catch(\Exception $e){
-            return $this->json(["error"=>$e->getMessage()], 400);
+            return $this->json(["error"=>"All fields required"], 400);
         }
-
     }
-    
+
+
+    /**
+     * @Route("/authors/create", name="author_create", methods={"POST","HEAD"})
+     * @param Request $request
+     * @return Response
+     */
+    public function authorCreate(Request $request): Response
+    {
+        $postFormData = json_decode($request->getContent(), true);
+        
+        if(sizeof($postFormData) === 0){
+            return $this->json(["message"=>"no fields informed"], 400);
+        }
+        try{
+            $createNewAuthor = new Author();
+            $createNewAuthor->setFullname($postFormData["fullname"]);
+            $createNewAuthor->setUsername($postFormData["username"]);
+                        
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->merge($createNewAuthor);
+            $entityManager->flush();
+            
+            return $this->json(["success"=>true]);
+          
+        } catch(\Exception $e){
+            return $this->json(["error"=>"All fields required"], 400);
+        }
+    }
 }

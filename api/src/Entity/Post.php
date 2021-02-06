@@ -55,7 +55,7 @@ class Post
     private $cover_image_url;
 
     /**
-     * @ORM\Column(type="datetime", "default"="CURRENT_TIMESTAMP")
+     * @ORM\Column(type="datetime", options={"default":"CURRENT_TIMESTAMP"})
      */
     private $created_at;
 

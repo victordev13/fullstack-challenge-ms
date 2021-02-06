@@ -21,7 +21,6 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->innerJoin('p.author_id','a','a.id=p.author_id_id')
-
             ->select('
                 p.title,
                 p.content_preview,
@@ -40,7 +39,7 @@ class PostRepository extends ServiceEntityRepository
 
 
     /**
-     * @param $slug
+     * @param string $slug
      * @return array
      */
     public function findOneBySlug($slug): array
@@ -63,16 +62,5 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy('p.created_at','DESC')
             ->getQuery()
             ->getResult();
-    }
-
-    public function create(Post $post)
-    {
-        try {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($post);
-            $entityManager->flush();
-        } catch (Exception $e) {
-
-        }
     }
 }

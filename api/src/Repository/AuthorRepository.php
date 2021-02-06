@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Author;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 class AuthorRepository extends ServiceEntityRepository
 {
@@ -14,7 +15,7 @@ class AuthorRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Author[]
+     * @return array
      */
     public function findAll(): array
     {
@@ -23,10 +24,14 @@ class AuthorRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+     /**
+     * @param int $id
+     * @return array
+     */
     public function findById(int $id): array
     {
         return $this->createQueryBuilder('a')
-            ->where('id = ?')
+            ->where('a.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
