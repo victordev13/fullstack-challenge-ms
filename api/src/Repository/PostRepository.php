@@ -24,7 +24,6 @@ class PostRepository extends ServiceEntityRepository
             ->select('
                 p.title,
                 p.content_preview,
-                p.content,
                 p.cover_image_url,
                 p.category,
                 p.slug,
