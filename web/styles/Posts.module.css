@@ -63,7 +63,6 @@
     font-size: 24pt;
     font-weight: 700;
     color: #c58c23;
-    cursor: pointer;
 }
 .content{
     line-height: 25px;
@@ -71,3 +70,30 @@
     font-weight: 400;
 }
 
+.post_container{
+    margin-top: 130px;
+    background-color:white;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    margin-bottom: 100px;
+    align-items: center;
+    width: 80vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+.post_header{   
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+.post_header img{
+    width: 40vw;
+}
+.post_info{
+    padding-left: 50px;
+    line-height: 30px;
+}
+.post_body{
+    padding: 10vh 20vh;
+    line-height: 25px;
+}
