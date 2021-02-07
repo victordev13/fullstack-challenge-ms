@@ -13,7 +13,7 @@ export default function Home() {
      */
     React.useEffect(async () => {
         console.log(process.env.NEXT_PUBLIC_API_URL);
-        await fetch(process.env.NEXT_PUBLIC_API_URL)
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`)
             .then((response) => {
                 return response.json();
             })
