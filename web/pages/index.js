@@ -1,10 +1,17 @@
+import React from 'react';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Header from '../components/Header';
 
 export default function Home() {
+    
+    const [postsList, setPostsList] = React.useState([]);
+    React.useEffect(async () => {
+        await fetch(process.env.API_URL);
+    }, []);
+    
     return (
-        <div className={styles.container}>
-            <h1>Hello World</h1>
-        </div>
+        <main>
+            <Header />
+        </main>
     );
 }
