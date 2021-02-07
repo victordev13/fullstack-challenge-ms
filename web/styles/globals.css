@@ -3,8 +3,9 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Rubik', sans-serif;
-  background-color: #F6AE2D;
-
+  /* background-color: #F6AE2D; */
+  background: linear-gradient(to bottom,#F6AE2D, #47330d);
+  min-height: 100vh;
 }
 
 a {
@@ -18,4 +19,18 @@ a:visited, a:active{
 * {
   box-sizing: border-box;
   margin:0
+}
+
+.posts{
+  margin-top: 100px;
+  padding: 0 
+}
+
+.aviso{
+  text-align: center;
+  margin-top: 20%;
+  color: white;
+  font-weight: 700;
+  font-size: 38pt;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
 }
