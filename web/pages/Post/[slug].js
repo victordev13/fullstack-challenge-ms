@@ -1,5 +1,6 @@
 import React from 'react';
 import {useRouter} from 'next/router'
+import Main from '../../components/Main';
 export default function Post () {
 
 
@@ -11,9 +12,5 @@ export default function Post () {
     React.useEffect(()=>{
         
     },[])
-    return(
-        <>
-            Post {router.query.slug}
-        </>
-    )
+    return <Main></Main>;
 }
