@@ -9,13 +9,15 @@ export default function Post() {
     const [currentPost, setCurrentPost] = React.useState([]);
     const [message, setMessage] = React.useState('');
     const router = useRouter();
-    
+    const {slug} = router.query;
+    const apiRequestUrl = `${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`;
+
     /**
      * Executando requisições na primeira renderização
      */
     React.useEffect(() => {
-        const slug = router.query.slug;
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${slug}`)
+        console.log(slug);
+        fetch(apiRequestUrl)
             .then((response) => 
             {
                 if(response.status === 404){
