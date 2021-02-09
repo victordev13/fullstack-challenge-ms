@@ -1,6 +1,6 @@
 ## Blog Application
 
-### Ferramentas utilizadas  :tw-1f527:
+### Ferramentas utilizadas  :wrench:
 - API:
  - Framework PHP: [Symfony 5.2](http://symfony.com/ "Symfony 5.2")
  - Banco de Dados: MySQL
@@ -10,13 +10,13 @@
 Screenshots: [Ver](https://github.com/victordev13/fullstack-challenge-ms/tree/development/screenshots "Ver")
 
 ---
-### Requisitos :fa-info-circle: 
+### Requisitos :information_source: 
 - PHP 7.2^
 - MySQL
 - PDO Habilitado
 - Composer 2.0.1^
 ---
-### Orientações de build  :tw-1f525:
+### Orientações de build  :fire:
 > Ambiente de desenvolvimento
 
 - ####Back-End
