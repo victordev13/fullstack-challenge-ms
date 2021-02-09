@@ -29,19 +29,24 @@ Screenshots: [Ver](https://github.com/victordev13/fullstack-challenge-ms/tree/de
 	`DATABASE_URL=mysql://db_user:db_pass@127.0.0.1:3306/db_name`
 
 	2.Instalar pacotes do composer
+	
 	`$ composer install`
 	
 	3.Iniciar configurações da aplicação
+	
 	`$ php bin/console app:run`
 	
 	4.Iniciar servidor na porta 8000
+	
 	`$ php bin/console server:run`
 	
 - ### Front-End
 	1.Instale os pacotes do node
+	
 	`$ npm install`
 	
 	2.Inicie o NextJS na porta 3000
+	
 	`$ npm run build && npm run start`
 	
 	3.Acesse:[http://localhost:3000](http://localhost:3000)
