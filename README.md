@@ -43,5 +43,8 @@ Screenshots: [Ver](https://github.com/victordev13/fullstack-challenge-ms/tree/de
 	
 	2.Inicie o NextJS na porta 3000
 	`$ npm run build && npm run start`
+	
+	3.Acesse:[http://localhost:3000](http://localhost:3000)
+	
 ----
 Criado em:  02/2021
