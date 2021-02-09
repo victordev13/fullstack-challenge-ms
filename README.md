@@ -19,7 +19,7 @@ Screenshots: [Ver](https://github.com/victordev13/fullstack-challenge-ms/tree/de
 ### Orientações de build  :fire:
 > Ambiente de desenvolvimento
 
-- ####Back-End
+- #### Back-End
 	1.Altere `.env`, e preencha suas credenciais 
 	
 	- db_user
@@ -37,7 +37,7 @@ Screenshots: [Ver](https://github.com/victordev13/fullstack-challenge-ms/tree/de
 	4.Iniciar servidor na porta 8000
 	`$ php bin/console server:run`
 	
-- ###Front-End
+- ### Front-End
 	1.Instale os pacotes do node
 	`$ npm install`
 	
