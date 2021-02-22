@@ -1,0 +1,18 @@
+#instalar pacotes do composer 
+composer install
+
+#criar banco de dados
+php bin/console doctrine:database:create
+
+#executar migrations
+php bin/console doctrine:migrations:migrate
+
+#popular banco de dados
+php bin/console doctrine:fixtures:load --append
+
+#iniciar servidor php
+php bin/console server:run
+
+##utilities
+#gerar migration
+php bin/console make:migration
